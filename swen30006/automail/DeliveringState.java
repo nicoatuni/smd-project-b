@@ -15,13 +15,18 @@ public class DeliveringState extends RobotState {
             }
             
             if (wantToReturn || r.tube.isEmpty()) {
-                // r.changeState(RETURNING);
+                r.changeState(new ReturningState());
             } else {
                 r.setRoute();
-                // r.changeState(DELIVERING);
+                r.changeState(new DeliveringState());
             }
         } else {
             r.moveTowards(r.getDestinationFloor());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "DELIVERING";
     }
 }

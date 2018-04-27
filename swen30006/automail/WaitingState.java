@@ -18,7 +18,12 @@ public class WaitingState extends RobotState {
             r.setDeliveryCounter(0);
             r.behaviour.startDelivery();
             r.setRoute();
-            // r.changeState();
+            r.changeState(new DeliveringState());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "WAITING";
     }
 }

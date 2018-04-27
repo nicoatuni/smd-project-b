@@ -1,5 +1,7 @@
 package automail;
 
+import java.util.Map;
+import java.util.TreeMap;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.IMailPool;
@@ -25,7 +27,9 @@ public class Robot {
     private MailItem deliveryItem;
     
     private int deliveryCounter;
-    
+
+    static int count = 0;
+    static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
 
     /**
      * Initiates the robot's location at the start to be at the mailroom
@@ -161,5 +165,11 @@ public class Robot {
     	}
     }
     
-
+    @Override
+    public int hashCode() {
+      Integer hash0 = super.hashCode();
+      Integer hash = hashMap.get(hash0);
+      if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
+      return hash;
+    }
 }

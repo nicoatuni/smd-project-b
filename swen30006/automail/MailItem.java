@@ -1,6 +1,8 @@
 package automail;
 
 // import java.util.UUID;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Represents a mail item
@@ -15,6 +17,9 @@ public class MailItem {
     protected final int arrival_time;
     /** The weight in grams of the mail item */
     protected final int weight;
+
+    static int count = 0;
+    static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
 
     /**
      * Constructor for a MailItem
@@ -32,6 +37,14 @@ public class MailItem {
     @Override
     public String toString(){
         return String.format("Mail Item:: ID: %11s | Arrival: %4d | Destination: %2d | Weight: %4d", id, arrival_time, destination_floor, weight );
+    }
+
+    @Override
+    public int hashCode() {
+      Integer hash0 = super.hashCode();
+      Integer hash = hashMap.get(hash0);
+      if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
+      return hash;
     }
 
     /**

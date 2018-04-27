@@ -184,4 +184,8 @@ public class Robot {
     public int getDestinationFloor() {
         return this.destination_floor;
     }
+
+    public MailItem getDeliveryItem() {
+        return this.deliveryItem;
+    }
 }

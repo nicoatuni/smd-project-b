@@ -134,4 +134,5 @@ public class Robot {
 
     public MailItem getDeliveryItem() {
         return this.deliveryItem;
+    }
 }

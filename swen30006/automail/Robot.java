@@ -91,7 +91,7 @@ public class Robot {
             System.out.printf("T: %3d > %11s changed from %s to %s%n", Clock.Time(), id, currentState, nextState);
     	}
     	currentState = nextState;
-        if (nextState.toString() == "DELIVERING") {
+        if (nextState.toString().equals("DELIVERING")) {
             System.out.printf("T: %3d > %11s-> [%s]%n", Clock.Time(), id, deliveryItem.toString());
         }
     }

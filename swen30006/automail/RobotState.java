@@ -18,6 +18,6 @@ public abstract class RobotState {
 
     @Override
     public boolean equals(Object obj) {
-        return this.toString() == obj.toString();
+        return toString().equals(obj.toString());
     }
 }

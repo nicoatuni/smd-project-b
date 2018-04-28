@@ -2,7 +2,6 @@ package automail;
 
 import exceptions.ItemTooHeavyException;
 import exceptions.ExcessiveDeliveryException;
-import automail.Robot;
 
 /**
  * The state when the robot is waiting for a mail item to be delivered.

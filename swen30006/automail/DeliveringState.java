@@ -2,7 +2,6 @@ package automail;
 
 import exceptions.ItemTooHeavyException;
 import exceptions.ExcessiveDeliveryException;
-import automail.Robot;
 
 public class DeliveringState extends RobotState {
     public void action(Robot r) throws ExcessiveDeliveryException, ItemTooHeavyException {

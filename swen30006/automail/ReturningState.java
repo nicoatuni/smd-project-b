@@ -2,8 +2,6 @@ package automail;
 
 import exceptions.ItemTooHeavyException;
 import exceptions.ExcessiveDeliveryException;
-import automail.Robot;
-import automail.MailItem;
 
 /**
  * The state when the robot is returning back to the mailroom.

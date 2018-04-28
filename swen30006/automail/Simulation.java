@@ -28,6 +28,7 @@ public class Simulation {
     		PropertyManager propertymanager = new PropertyManager("automail.properties");
     		int seed = Integer.parseInt(propertymanager.getProperty("Seed"));
     		Building.setFloor(Integer.parseInt(propertymanager.getProperty("Number_of_Floors")));
+    		Clock.setDeliveryTime(Integer.parseInt(propertymanager.getProperty("Last_Delivery_Time")));
     		penalty = Double.parseDouble(propertymanager.getProperty("Delivery_Penalty"));
     		MAIL_TO_CREATE = Integer.parseInt(propertymanager.getProperty("Mail_to_Create"));
     		

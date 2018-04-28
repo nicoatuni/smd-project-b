@@ -4,8 +4,9 @@ import automail.IMailDelivery;
 import automail.Robot;
 
 public class Automail {
-	      
-    public Robot robot1, robot2;
+	
+	// Maybe we could change it into an array of robot? for cases where we have more than 2 robots
+    private Robot robot1, robot2;
     public IMailPool mailPool;
     
     public Automail(IMailDelivery delivery) {
@@ -27,6 +28,14 @@ public class Automail {
     	/** Initialize robot */
     	robot1 = new Robot(robotBehaviourW, delivery, mailPool, weak); /* shared behaviour because identical and stateless */
     	robot2 = new Robot(robotBehaviourS, delivery, mailPool, strong);
+    }
+    
+    public Robot getRobot1() {
+    		return this.robot1;
+    }
+    
+    public Robot getRobot2() {
+    		return this.robot2;
     }
     
 }

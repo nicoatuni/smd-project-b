@@ -50,7 +50,8 @@ public class Simulation {
         
         /** Read the first argument and save it as a seed if it exists */
         if(args.length != 0){
-        	int seed = Integer.parseInt(args[0]);
+        	//int seed = 300;
+        int seed = Integer.parseInt(args[0]);
         	seedMap.put(true, seed);
         } else{
         	seedMap.put(false, 0);
@@ -65,12 +66,12 @@ public class Simulation {
         	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
             if (priority != null) {
-            	automail.robot1.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
-            	automail.robot2.behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
+            	automail.getRobot1().behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
+            	automail.getRobot2().behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
             }
             try {
-				automail.robot1.step();
-				automail.robot2.step();
+				automail.getRobot1().step();
+				automail.getRobot2().step();
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");

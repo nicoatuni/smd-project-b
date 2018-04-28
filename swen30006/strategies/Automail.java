@@ -56,14 +56,17 @@ public class Automail {
 	}
 	
 	/**
-	 * 
+	 * Add the mail item to the mail pool
+	 * @param mailItem the mail item to be added to the pool
 	 */
 	public void addToPool(MailItem mailItem) {
 		mailPool.addToPool(mailItem);
 	}
 
 	/**
-	 * 
+	 * Fill the specified storage tube with a mail item
+	 * @param tube the storage tube to be filled with mail item(s)
+	 * @param strong the type of the robot the tube belongs to
 	 */
 	public void fillStorageTube(StorageTube tube, boolean strong) {
 		mailPool.fillStorageTube(tube, strong);

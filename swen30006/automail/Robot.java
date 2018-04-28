@@ -21,7 +21,6 @@ public class Robot {
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
-    // private IMailPool mailPool;
     private boolean strong;
     
     private MailItem deliveryItem;
@@ -48,7 +47,6 @@ public class Robot {
         tube = new StorageTube();
         this.behaviour = behaviour;
         this.delivery = delivery;
-        // this.mailPool = mailPool;
         this.strong = strong;
         this.deliveryCounter = 0;
         this.automail = automail;
@@ -101,11 +99,17 @@ public class Robot {
         }
     }
 
+    /**
+     * Add the mail item to the mail pool through Automail
+     * @param mailItem the mail item to be added to the pool
+     */
     public void addToPool(MailItem mailItem) {
-        // automail.mailPool.addToPool(mailItem);
         automail.addToPool(mailItem);
     }
 
+    /**
+     * Get Automail to fill the robot's storage tube
+     */
     public void fillStorageTube() {
         automail.fillStorageTube(tube, strong);
     }
@@ -117,10 +121,6 @@ public class Robot {
       if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
       return hash;
     }
-    
-    // public IMailPool getMailPool() {
-    //     return this.mailPool;
-    // }
 
     public boolean getStrong() {
         return this.strong;

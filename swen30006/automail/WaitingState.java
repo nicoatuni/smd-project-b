@@ -12,7 +12,6 @@ public class WaitingState extends RobotState {
      * @param r the robot in this state
      */
     public void action(Robot r) throws ExcessiveDeliveryException, ItemTooHeavyException {
-        // r.getMailPool().fillStorageTube(r.tube, r.getStrong());
         r.fillStorageTube();
         
         if (!r.tube.isEmpty()) {

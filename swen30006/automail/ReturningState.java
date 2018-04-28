@@ -18,8 +18,10 @@ public class ReturningState extends RobotState {
                 r.getMailPool().addToPool(mailItem);
                 System.out.printf("T: %3d > old addToPool [%s]%n", Clock.Time(), mailItem.toString());
             }
+
             r.changeState(new WaitingState());
             r.step();
+
         } else {
             r.moveTowards(Building.MAILROOM_LOCATION);
         }

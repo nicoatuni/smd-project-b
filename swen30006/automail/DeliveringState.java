@@ -3,12 +3,21 @@ package automail;
 import exceptions.ItemTooHeavyException;
 import exceptions.ExcessiveDeliveryException;
 
+/**
+ * The state when the robot is delivering mail items.
+ */
 public class DeliveringState extends RobotState {
+    /**
+     * Defines the action that the robot will carry out when delivering.
+     * @param r the robot in this state
+     */
     public void action(Robot r) throws ExcessiveDeliveryException, ItemTooHeavyException {
         boolean wantToReturn = r.behaviour.returnToMailRoom(r.tube);
+
         if (r.getCurrentFloor() == r.getDestinationFloor()) {
             r.delivery.deliver(r.getDeliveryItem());
             r.setDeliveryCounter(r.getDeliveryCounter() + 1);
+
             if (r.getDeliveryCounter() > 4) {
                 throw new ExcessiveDeliveryException();
             }
@@ -19,6 +28,7 @@ public class DeliveringState extends RobotState {
                 r.setRoute();
                 r.changeState(new DeliveringState());
             }
+
         } else {
             r.moveTowards(r.getDestinationFloor());
         }

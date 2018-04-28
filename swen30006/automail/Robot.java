@@ -16,9 +16,7 @@ public class Robot {
     IRobotBehaviour behaviour;
     IMailDelivery delivery;
     protected final String id;
-    /** Possible states the robot can be in */
-    // public enum RobotState { DELIVERING, WAITING, RETURNING }
-    // public RobotState current_state;
+    /** The state that the robot currently is in. */
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
@@ -42,8 +40,6 @@ public class Robot {
      */
     public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, boolean strong){
     	id = "R" + hashCode();
-        // current_state = RobotState.WAITING;
-        // current_state = RobotState.RETURNING;
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube();
@@ -58,7 +54,8 @@ public class Robot {
      * This is called on every time step
      * @throws ExcessiveDeliveryException if robot delivers more than the capacity of the tube without refilling
      */
-    public void step() throws ExcessiveDeliveryException, ItemTooHeavyException{    	
+    public void step() throws ExcessiveDeliveryException, ItemTooHeavyException{    
+        /* Carries out different actions depending on the state it's in */	
     	currentState.action(this);
     }
 

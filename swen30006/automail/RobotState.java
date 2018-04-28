@@ -2,10 +2,9 @@ package automail;
 
 import exceptions.ItemTooHeavyException;
 import exceptions.ExcessiveDeliveryException;
-import automail.Robot;
 
 /**
- * The different states a Robot could be in.
+ * The different states a Robot could be in at any time.
  */
 public abstract class RobotState {
     /** 

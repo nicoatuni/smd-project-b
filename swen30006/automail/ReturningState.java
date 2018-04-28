@@ -15,7 +15,8 @@ public class ReturningState extends RobotState {
         if (r.getCurrentFloor() == Building.MAILROOM_LOCATION) {
             while (!r.tube.isEmpty()) {
                 MailItem mailItem = r.tube.pop();
-                r.getMailPool().addToPool(mailItem);
+                // r.getMailPool().addToPool(mailItem);
+                r.addToPool(mailItem);
                 System.out.printf("T: %3d > old addToPool [%s]%n", Clock.Time(), mailItem.toString());
             }
 

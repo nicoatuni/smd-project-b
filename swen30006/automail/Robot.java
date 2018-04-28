@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
+import strategies.Automail;
 import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
@@ -20,12 +21,14 @@ public class Robot {
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
-    private IMailPool mailPool;
+    // private IMailPool mailPool;
     private boolean strong;
     
     private MailItem deliveryItem;
     
     private int deliveryCounter;
+
+    private Automail automail;
 
     static int count = 0;
     static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
@@ -38,16 +41,17 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, boolean strong){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube();
         this.behaviour = behaviour;
         this.delivery = delivery;
-        this.mailPool = mailPool;
+        // this.mailPool = mailPool;
         this.strong = strong;
         this.deliveryCounter = 0;
+        this.automail = automail;
     }
 
     /**
@@ -97,6 +101,15 @@ public class Robot {
         }
     }
 
+    public void addToPool(MailItem mailItem) {
+        // automail.mailPool.addToPool(mailItem);
+        automail.addToPool(mailItem);
+    }
+
+    public void fillStorageTube() {
+        automail.fillStorageTube(tube, strong);
+    }
+
     @Override
     public int hashCode() {
       Integer hash0 = super.hashCode();
@@ -105,9 +118,9 @@ public class Robot {
       return hash;
     }
     
-    public IMailPool getMailPool() {
-        return this.mailPool;
-    }
+    // public IMailPool getMailPool() {
+    //     return this.mailPool;
+    // }
 
     public boolean getStrong() {
         return this.strong;

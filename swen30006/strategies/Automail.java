@@ -1,7 +1,9 @@
 package strategies;
 
 import automail.IMailDelivery;
+import automail.MailItem;
 import automail.Robot;
+import automail.StorageTube;
 
 public class Automail {
 	
@@ -26,8 +28,8 @@ public class Automail {
     	IRobotBehaviour robotBehaviourS = new MyRobotBehaviour(strong);
     	    	
     	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviourW, delivery, mailPool, weak); /* shared behaviour because identical and stateless */
-    	robot2 = new Robot(robotBehaviourS, delivery, mailPool, strong);
+    	robot1 = new Robot(robotBehaviourW, delivery, weak, this); /* shared behaviour because identical and stateless */
+    	robot2 = new Robot(robotBehaviourS, delivery, strong, this);
     }
     
     public Robot getRobot1() {
@@ -36,6 +38,20 @@ public class Automail {
     
     public Robot getRobot2() {
     		return this.robot2;
-    }
+	}
+	
+	/**
+	 * 
+	 */
+	public void addToPool(MailItem mailItem) {
+		mailPool.addToPool(mailItem);
+	}
+
+	/**
+	 * 
+	 */
+	public void fillStorageTube(StorageTube tube, boolean strong) {
+		mailPool.fillStorageTube(tube, strong);
+	}
     
 }

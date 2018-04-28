@@ -1,7 +1,9 @@
 package strategies;
 
 import automail.IMailDelivery;
+import automail.MailItem;
 import automail.Robot;
+import automail.StorageTube;
 
 public class Automail {
 	
@@ -41,8 +43,8 @@ public class Automail {
     	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(roboact2);
     	    	
     	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviour1, delivery, mailPool, roboact1); /* shared behaviour because identical and stateless */
-    	robot2 = new Robot(robotBehaviour2, delivery, mailPool, roboact2);
+    	robot1 = new Robot(robotBehaviour1, delivery, roboact1, this); /* shared behaviour because identical and stateless */
+    	robot2 = new Robot(robotBehaviour2, delivery, roboact2, this);
     }
     
     public Robot getRobot1() {
@@ -51,6 +53,23 @@ public class Automail {
     
     public Robot getRobot2() {
     		return this.robot2;
-    }
+	}
+	
+	/**
+	 * Add the mail item to the mail pool
+	 * @param mailItem the mail item to be added to the pool
+	 */
+	public void addToPool(MailItem mailItem) {
+		mailPool.addToPool(mailItem);
+	}
+
+	/**
+	 * Fill the specified storage tube with a mail item
+	 * @param tube the storage tube to be filled with mail item(s)
+	 * @param strong the type of the robot the tube belongs to
+	 */
+	public void fillStorageTube(StorageTube tube, boolean strong) {
+		mailPool.fillStorageTube(tube, strong);
+	}
     
 }

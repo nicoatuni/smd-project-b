@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
+import strategies.Automail;
 import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
@@ -20,12 +21,13 @@ public class Robot {
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
-    private IMailPool mailPool;
     private boolean strong;
     
     private MailItem deliveryItem;
     
     private int deliveryCounter;
+
+    private Automail automail;
 
     static int count = 0;
     static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
@@ -38,16 +40,16 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, IMailPool mailPool, boolean strong){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube();
         this.behaviour = behaviour;
         this.delivery = delivery;
-        this.mailPool = mailPool;
         this.strong = strong;
         this.deliveryCounter = 0;
+        this.automail = automail;
     }
 
     /**
@@ -97,16 +99,27 @@ public class Robot {
         }
     }
 
+    /**
+     * Add the mail item to the mail pool through Automail
+     * @param mailItem the mail item to be added to the pool
+     */
+    public void addToPool(MailItem mailItem) {
+        automail.addToPool(mailItem);
+    }
+
+    /**
+     * Get Automail to fill the robot's storage tube
+     */
+    public void fillStorageTube() {
+        automail.fillStorageTube(tube, strong);
+    }
+
     @Override
     public int hashCode() {
       Integer hash0 = super.hashCode();
       Integer hash = hashMap.get(hash0);
       if (hash == null) { hash = count++; hashMap.put(hash0, hash); }
       return hash;
-    }
-    
-    public IMailPool getMailPool() {
-        return this.mailPool;
     }
 
     public boolean getStrong() {

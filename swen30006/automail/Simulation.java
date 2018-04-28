@@ -54,13 +54,12 @@ public class Simulation {
         HashMap<Boolean, Integer> seedMap = new HashMap<>();
         
         /** Read the first argument and save it as a seed if it exists */
-        if(args.length != 0){
+        //if(args.length != 0){
         	//int seed = 300;
-        
         	seedMap.put(true, seed);
-        } else{
-        	seedMap.put(false, 0);
-        }
+        //} else{
+        	//seedMap.put(false, 0);
+        	//}
         Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
         MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
         

@@ -93,7 +93,7 @@ public class MailGenerator {
      * @return a random arrival time before the last delivery time
      */
     private int generateArrivalTime(){
-        return 1 + random.nextInt(Clock.LAST_DELIVERY_TIME);
+        return 1 + random.nextInt(Clock.getDeliveryTime());
     }
 
     /**

@@ -67,7 +67,7 @@ public class MailGenerator {
      * @return a destination floor between the ranges of GROUND_FLOOR to FLOOR
      */
     private int generateDestinationFloor(){
-        return Building.LOWEST_FLOOR + random.nextInt(Building.FLOORS);
+        return Building.LOWEST_FLOOR + random.nextInt(Building.getFloor());
     }
 
     /**

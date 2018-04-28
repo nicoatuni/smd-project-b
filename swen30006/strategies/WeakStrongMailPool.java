@@ -18,7 +18,7 @@ public class WeakStrongMailPool implements IMailPool{
 		// Start empty
 		upper = new LinkedList<MailItem>();
 		lower = new LinkedList<MailItem>();
-		divider = Building.FLOORS / 2;  // Top normal floor for strong robot
+		divider = Building.getFloor() / 2;  // Top normal floor for strong robot
 	}
 
 	private int priority(MailItem m) {

@@ -60,7 +60,7 @@ public class Robot {
      */
     public void step() throws ExcessiveDeliveryException, ItemTooHeavyException{    
         /* Carries out different actions depending on the state it's in */	
-    		currentState.action(this);
+    	currentState.action(this);
     }
 
     /**
@@ -124,26 +124,50 @@ public class Robot {
       return hash;
     }
 
+    /**
+    *
+    * @return the strong boolean value of this robot
+    */
     public boolean getStrong() {
         return this.strong;
     }
 
+    /**
+    *
+    * @return the deliveryCounter of this robot
+    */
     public int getDeliveryCounter() {
         return this.deliveryCounter;
     }
 
+    /**
+    *
+    * Set the deliveryCounter of this robot
+    */
     public void setDeliveryCounter(int newCounter) {
         this.deliveryCounter = newCounter;
     }
 
+    /**
+    *
+    * @return the current floor of the robot
+    */
     public int getCurrentFloor() {
         return this.current_floor;
     }
 
+    /**
+    *
+    * @return the destination floor of robot
+    */
     public int getDestinationFloor() {
         return this.destination_floor;
     }
 
+    /**
+    *
+    * @return the delivery item of this robot
+    */
     public MailItem getDeliveryItem() {
         return this.deliveryItem;
     }

@@ -25,12 +25,13 @@ public class Simulation {
     
     public static void main(String[] args) { //throws IOException {
 
-    		PropertyManager propertymanager = new PropertyManager("automail.properties");
-    		int seed = Integer.parseInt(propertymanager.getProperty("Seed"));
-    		Building.setFloor(Integer.parseInt(propertymanager.getProperty("Number_of_Floors")));
-    		Clock.setDeliveryTime(Integer.parseInt(propertymanager.getProperty("Last_Delivery_Time")));
-    		penalty = Double.parseDouble(propertymanager.getProperty("Delivery_Penalty"));
-    		MAIL_TO_CREATE = Integer.parseInt(propertymanager.getProperty("Mail_to_Create"));
+    	/* Set all properties from the .properties file */
+    	PropertyManager propertymanager = new PropertyManager("automail.properties");
+    	int seed = Integer.parseInt(propertymanager.getProperty("Seed"));
+    	Building.setFloor(Integer.parseInt(propertymanager.getProperty("Number_of_Floors")));
+    	Clock.setDeliveryTime(Integer.parseInt(propertymanager.getProperty("Last_Delivery_Time")));
+    	penalty = Double.parseDouble(propertymanager.getProperty("Delivery_Penalty")); // Penalty for longer delivery times
+    	MAIL_TO_CREATE = Integer.parseInt(propertymanager.getProperty("Mail_to_Create"));
     		
         MAIL_DELIVERED = new ArrayList<MailItem>();
                 
@@ -38,12 +39,8 @@ public class Simulation {
         HashMap<Boolean, Integer> seedMap = new HashMap<>();
         
         /** Read the first argument and save it as a seed if it exists */
-        //if(args.length != 0){
-        	//int seed = 300;
-        	seedMap.put(true, seed);
-        //} else{
-        	//seedMap.put(false, 0);
-        	//}
+        seedMap.put(true, seed);
+
         Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
         MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
         
@@ -51,7 +48,7 @@ public class Simulation {
         generator.generateAllMail();
         PriorityMailItem priority;
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
-        	//System.out.println("-- Step: "+Clock.Time());
+        	
             priority = generator.step();
             if (priority != null) {
             	automail.getRobot1().behaviour.priorityArrival(priority.getPriorityLevel(), priority.weight);
@@ -92,15 +89,14 @@ public class Simulation {
     }
     
     private static double calculateDeliveryScore(MailItem deliveryItem) {
-    		// Penalty for longer delivery times
-    		
-    		double priority_weight = 0;
-        // Take (delivery time - arrivalTime)**penalty * (1+sqrt(priority_weight))
-    		if(deliveryItem instanceof PriorityMailItem){
-    			priority_weight = ((PriorityMailItem) deliveryItem).getPriorityLevel();
-    		}
-    		return Math.pow(Clock.Time() - deliveryItem.getArrivalTime(),penalty)*(1+Math.sqrt(priority_weight));
+    	double priority_weight = 0;
+    	
+    	// Take (delivery time - arrivalTime)**penalty * (1+sqrt(priority_weight))
+    	if(deliveryItem instanceof PriorityMailItem){
+   			priority_weight = ((PriorityMailItem) deliveryItem).getPriorityLevel();
     	}
+    	return Math.pow(Clock.Time() - deliveryItem.getArrivalTime(),penalty)*(1+Math.sqrt(priority_weight));
+   	}
 
     public static void printResults(){
         System.out.println("T: "+Clock.Time()+" | Simulation complete!");

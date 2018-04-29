@@ -60,7 +60,7 @@ public class Robot {
      */
     public void step() throws ExcessiveDeliveryException, ItemTooHeavyException{    
         /* Carries out different actions depending on the state it's in */	
-    		currentState.action(this);
+    	currentState.action(this);
     }
 
     /**

@@ -5,7 +5,6 @@ import java.util.TreeMap;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.Automail;
-import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
 /**
@@ -44,7 +43,7 @@ public class Robot {
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
-        tube = new StorageTube();
+        tube = new StorageTube(robotType);
         this.behaviour = behaviour;
         this.delivery = delivery;
         this.robotType = robotType;

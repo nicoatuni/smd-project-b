@@ -9,15 +9,14 @@ public class Automail {
 	
 	// Maybe we could change it into an array of robot? for cases where we have more than 2 robots
     private Robot robot1, robot2;
-    public IMailPool mailPool;
+    private IMailPool mailPool;
+    private MailItem item;
     
-    
-    
-    public Automail(IMailDelivery delivery, String robot1_type, String robot2_type) {
+    public Automail(String robot1_type, String robot2_type) {
     		// Swap between simple provided strategies and your strategies here
     	    	
     		/** Initialize the MailPool */
-    	
+    		item = null;
     		//// Swap the next line for the one below
     		mailPool = new WeakStrongMailPool();
     		
@@ -62,8 +61,8 @@ public class Automail {
     		}
     		
     		/** Initialize robot */
-    		robot1 = generateRobot(robot1_type, delivery, roboact1); /* shared behaviour because identical and stateless */
-    		robot2 = generateRobot(robot2_type, delivery, roboact2);
+    		robot1 = generateRobot(robot1_type, roboact1); /* shared behaviour because identical and stateless */
+    		robot2 = generateRobot(robot2_type, roboact2);
     }
     
     public Robot getRobot1() {
@@ -74,7 +73,11 @@ public class Automail {
     		return this.robot2;
 	}
 	
-    private Robot generateRobot(String robot_type, IMailDelivery delivery, boolean strong) {
+    public IMailPool getMailPool() {
+    		return this.mailPool;
+    }
+    
+    private Robot generateRobot(String robot_type, boolean strong) {
     	
     		boolean behaviour = false;
     		
@@ -84,7 +87,7 @@ public class Automail {
     		
     		IRobotBehaviour robotBehaviour = new MyRobotBehaviour(behaviour);
     		
-    		return new Robot(robotBehaviour, delivery, strong, this, robot_type);
+    		return new Robot(robotBehaviour, strong, this, robot_type);
     }
     
 	/**
@@ -104,4 +107,11 @@ public class Automail {
 		mailPool.fillStorageTube(tube, strong);
 	}
     
+	public MailItem getItem() {
+		return this.item;
+	}
+	
+	public void setItem(MailItem item) {
+		this.item = item;
+	}
 }

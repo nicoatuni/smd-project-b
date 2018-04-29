@@ -15,14 +15,14 @@ public class Robot {
 
 	StorageTube tube;
     IRobotBehaviour behaviour;
-    IMailDelivery delivery;
+    //IMailDelivery delivery;
     protected final String id;
     /** The state that the robot currently is in. */
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
     private boolean strong;
-    private String robot_type;
+   
     
     private MailItem deliveryItem;
     
@@ -41,17 +41,17 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail, String type){
+    public Robot(IRobotBehaviour behaviour, boolean strong, Automail automail, String type){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube(type);
         this.behaviour = behaviour;
-        this.delivery = delivery;
+        //this.delivery = delivery;
         this.strong = strong;
         this.deliveryCounter = 0;
         this.automail = automail;
-        this.robot_type = type;
+        
     }
 
     /**
@@ -146,5 +146,9 @@ public class Robot {
 
     public MailItem getDeliveryItem() {
         return this.deliveryItem;
+    }
+    
+    public Automail getAutoMail() {
+    		return this.automail;
     }
 }

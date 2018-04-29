@@ -22,9 +22,10 @@ public class Simulation {
     private static ArrayList<MailItem> MAIL_DELIVERED;
     private static double total_score = 0;
     private static double penalty = 1.1;
+    private static IMailDelivery delivery;
     
     public static void main(String[] args) { //throws IOException {
-
+    		delivery = new ReportDelivery();
     		PropertyManager propertymanager = new PropertyManager("automail.properties");
     		int seed = Integer.parseInt(propertymanager.getProperty("Seed"));
     		Building.setFloor(Integer.parseInt(propertymanager.getProperty("Number_of_Floors")));
@@ -44,12 +45,13 @@ public class Simulation {
         //} else{
         	//seedMap.put(false, 0);
         	//}
-        Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
-        MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
+        Automail automail = new Automail(propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
+        MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.getMailPool(), seedMap);
         
         /** Initiate all the mail */
         generator.generateAllMail();
         PriorityMailItem priority;
+        
         while(MAIL_DELIVERED.size() != generator.MAIL_TO_CREATE) {
         	//System.out.println("-- Step: "+Clock.Time());
             priority = generator.step();
@@ -59,7 +61,15 @@ public class Simulation {
             }
             try {
 				automail.getRobot1().step();
+				if(automail.getItem() != null) {
+					delivery.deliver(automail.getItem());
+					automail.setItem(null);
+				}
 				automail.getRobot2().step();
+				if(automail.getItem() != null) {
+					delivery.deliver(automail.getItem());
+					automail.setItem(null);
+				}
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");

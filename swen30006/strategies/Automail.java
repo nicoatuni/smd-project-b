@@ -19,31 +19,12 @@ public class Automail {
     	//// Swap the next line for the one below
     	mailPool = new WeakStrongMailPool();
     	
-        /** Initialize the RobotAction */
-    	boolean weak = false;  // Can't handle more than 2000 grams
-    	boolean strong = true; // Can handle any weight that arrives at the building
-    	
-    	// boolean roboact1;
-    	// boolean roboact2;
-    	
-    	// if (robotType1.equals("weak")) {
-    		// roboact1 = weak;
-    	// } else {
-    		// roboact1 = strong;
-    	// }
-
-    	// if (robotType2.equals("weak")) {
-    		// roboact2 = weak;
-    	// } else {
-    		// roboact2 = strong;
-    	// }
-    	
     	//// Swap the next two lines for the two below those
     	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(robotType1);
     	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(robotType2);
     	    	
     	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this); /* shared behaviour because identical and stateless */
+    	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this);
     	robot2 = new Robot(robotBehaviour2, delivery, robotType2, this);
     }
     

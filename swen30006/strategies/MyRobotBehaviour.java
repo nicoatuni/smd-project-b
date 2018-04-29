@@ -1,5 +1,4 @@
 package strategies;
-import automail.Clock;
 import automail.MailItem;
 import automail.PriorityMailItem;
 import automail.StorageTube;
@@ -38,5 +37,5 @@ public class MyRobotBehaviour implements IRobotBehaviour {
 			return robotType.equals("strong") && newPriority > tubePriority(tube);
 		}
 	}
-	
+
 }

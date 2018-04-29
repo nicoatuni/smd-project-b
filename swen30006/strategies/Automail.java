@@ -43,8 +43,8 @@ public class Automail {
     	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(roboact2);
     	    	
     	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviour1, delivery, roboact1, this); /* shared behaviour because identical and stateless */
-    	robot2 = new Robot(robotBehaviour2, delivery, roboact2, this);
+    	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this); /* shared behaviour because identical and stateless */
+    	robot2 = new Robot(robotBehaviour2, delivery, robotType2, this);
     }
     
     public Robot getRobot1() {
@@ -66,10 +66,10 @@ public class Automail {
 	/**
 	 * Fill the specified storage tube with a mail item
 	 * @param tube the storage tube to be filled with mail item(s)
-	 * @param strong the type of the robot the tube belongs to
+	 * @param robotType the type of robot the tube belongs to
 	 */
-	public void fillStorageTube(StorageTube tube, boolean strong) {
-		mailPool.fillStorageTube(tube, strong);
+	public void fillStorageTube(StorageTube tube, String robotType) {
+		mailPool.fillStorageTube(tube, robotType);
 	}
     
 }

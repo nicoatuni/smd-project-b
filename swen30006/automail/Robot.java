@@ -21,7 +21,7 @@ public class Robot {
     private RobotState currentState;
     private int current_floor;
     private int destination_floor;
-    private boolean strong;
+    private String robotType;
     
     private MailItem deliveryItem;
     
@@ -40,14 +40,14 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, String robotType, Automail automail){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
         tube = new StorageTube();
         this.behaviour = behaviour;
         this.delivery = delivery;
-        this.strong = strong;
+        this.robotType = robotType;
         this.deliveryCounter = 0;
         this.automail = automail;
     }
@@ -67,7 +67,7 @@ public class Robot {
     public void setRoute() throws ItemTooHeavyException{
         /** Pop the item from the StorageUnit */
         deliveryItem = tube.pop();
-        if (!strong && deliveryItem.weight > 2000) throw new ItemTooHeavyException(); 
+        if (robotType.equals("weak") && deliveryItem.weight > 2000) throw new ItemTooHeavyException();
         /** Set the destination floor */
         destination_floor = deliveryItem.getDestFloor();
     }
@@ -111,7 +111,7 @@ public class Robot {
      * Get Automail to fill the robot's storage tube
      */
     public void fillStorageTube() {
-        automail.fillStorageTube(tube, strong);
+        automail.fillStorageTube(tube, robotType);
     }
 
     @Override
@@ -122,9 +122,9 @@ public class Robot {
       return hash;
     }
 
-    public boolean getStrong() {
-        return this.strong;
-    }
+    // public String getType() {
+    //     return this.robotType;
+    // }
 
     public int getDeliveryCounter() {
         return this.deliveryCounter;

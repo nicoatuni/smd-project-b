@@ -22,6 +22,7 @@ public class Robot {
     private int current_floor;
     private int destination_floor;
     private boolean strong;
+    private String robot_type;
     
     private MailItem deliveryItem;
     
@@ -40,16 +41,17 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, boolean strong, Automail automail, String type){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
-        tube = new StorageTube();
+        tube = new StorageTube(type);
         this.behaviour = behaviour;
         this.delivery = delivery;
         this.strong = strong;
         this.deliveryCounter = 0;
         this.automail = automail;
+        this.robot_type = type;
     }
 
     /**
@@ -58,7 +60,7 @@ public class Robot {
      */
     public void step() throws ExcessiveDeliveryException, ItemTooHeavyException{    
         /* Carries out different actions depending on the state it's in */	
-    	currentState.action(this);
+    		currentState.action(this);
     }
 
     /**

@@ -11,40 +11,59 @@ public class Automail {
     private Robot robot1, robot2;
     public IMailPool mailPool;
     
-    public Automail(IMailDelivery delivery, String robot1_action, String robot2_action) {
-    	// Swap between simple provided strategies and your strategies here
+    
+    
+    public Automail(IMailDelivery delivery, String robot1_type, String robot2_type) {
+    		// Swap between simple provided strategies and your strategies here
     	    	
-    	/** Initialize the MailPool */
+    		/** Initialize the MailPool */
     	
-    	//// Swap the next line for the one below
-    	mailPool = new WeakStrongMailPool();
-    	
-        /** Initialize the RobotAction */
-    	boolean weak = false;  // Can't handle more than 2000 grams
-    	boolean strong = true; // Can handle any weight that arrives at the building
-    	
-    	boolean roboact1;
-    	boolean roboact2;
-    	
-    	if (robot1_action.equals("weak")) {
-    		roboact1 = weak;
-    	} else {
-    		roboact1 = strong;
-    	}
-    	
-    	if (robot2_action.equals("weak")) {
-    		roboact2 = weak;
-    	} else {
-    		roboact2 = strong;
-    	}
-    	
-    	//// Swap the next two lines for the two below those
-    	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(roboact1);
-    	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(roboact2);
-    	    	
-    	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviour1, delivery, roboact1, this); /* shared behaviour because identical and stateless */
-    	robot2 = new Robot(robotBehaviour2, delivery, roboact2, this);
+    		//// Swap the next line for the one below
+    		mailPool = new WeakStrongMailPool();
+    		
+    		//robot1_type itu weak -> upper; else if robot1_type itu strong ->
+    		//robot1_type itu weak juga -> exit() print invalid input robot type
+    		//robot
+    		boolean weak = false;  // Can't handle more than 2000 grams
+    		boolean strong = true; // Can handle any weight that arrives at the building
+    		
+    		boolean roboact1 = true;
+    		boolean roboact2 = true;
+    		boolean case1 = false;
+    		
+    		if (robot1_type.equals("weak") && robot2_type.equals("weak")) {
+    			//exit
+    			System.out.println("INVALID INPUT, PROGRAM SHUT DOWN !!!");
+    			System.exit(0);
+    		} else if(robot1_type.equals("weak") || robot2_type.equals("weak")) {
+    			//look which one is weak
+    			if (robot1_type.equals("weak")) {
+    				roboact1 = weak;
+    				roboact2 = strong;
+    			} else {
+    				roboact1 = strong;
+    				roboact2 = weak;
+    			}
+    			
+    		} else if((case1=(robot1_type.equals("big") && robot2_type.equals("strong"))) || (robot1_type.equals("strong") && robot2_type.equals("big"))) {
+    			//big upper, strong lower
+    			if (case1) {
+    				roboact1 = weak;
+    				roboact2 = strong;
+    			} else {
+    				roboact1 = strong;
+    				roboact2 = weak;
+    			}
+    			
+    		} else {
+    			//robot1 = upper, robot2 = lower
+    			roboact1 = weak;
+			roboact2 = strong;
+    		}
+    		
+    		/** Initialize robot */
+    		robot1 = generateRobot(robot1_type, delivery, roboact1); /* shared behaviour because identical and stateless */
+    		robot2 = generateRobot(robot2_type, delivery, roboact2);
     }
     
     public Robot getRobot1() {
@@ -55,6 +74,19 @@ public class Automail {
     		return this.robot2;
 	}
 	
+    private Robot generateRobot(String robot_type, IMailDelivery delivery, boolean strong) {
+    	
+    		boolean behaviour = false;
+    		
+    		if (robot_type.equals("big") || robot_type.equals("strong")) {
+    			behaviour = strong;
+    		}
+    		
+    		IRobotBehaviour robotBehaviour = new MyRobotBehaviour(behaviour);
+    		
+    		return new Robot(robotBehaviour, delivery, strong, this, robot_type);
+    }
+    
 	/**
 	 * Add the mail item to the mail pool
 	 * @param mailItem the mail item to be added to the pool

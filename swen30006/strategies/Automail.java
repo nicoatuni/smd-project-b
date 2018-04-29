@@ -17,7 +17,35 @@ public class Automail {
     	/** Initialize the MailPool */
     	
     	//// Swap the next line for the one below
-    	mailPool = new WeakStrongMailPool();
+		mailPool = new WeakStrongMailPool();
+
+		String mailPosition1, mailPosition2;
+		
+		if (robotType1.equals("weak") || robotType2.equals("weak")) {
+			if (robotType1.equals("weak")) {
+				mailPosition1 = "upper";
+				mailPosition2 = "lower";
+			} else {
+				mailPosition1 = "lower";
+				mailPosition2 = "upper";
+			}
+		} else {
+			// no weak robot, and further check if one of them is a big one
+			// (either big-big, strong-strong, or strong-big)
+			if (robotType1.equals("big") || robotType2.equals("big")) {
+				if (robotType1.equals("big")) {
+					robotType1 = "upper";
+					robotType2 = "lower";
+				} else {
+					robotType1 = "lower";
+					robotType2 = "upper";
+				}
+			} else {
+				// no weak nor big robots, only strong ones
+				robotType1 = "upper";
+				robotType2 = "lower";
+			}
+		}
     	
     	//// Swap the next two lines for the two below those
     	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(robotType1);

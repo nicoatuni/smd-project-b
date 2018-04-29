@@ -18,7 +18,7 @@ public class DeliveringState extends RobotState {
             r.delivery.deliver(r.getDeliveryItem());
             r.setDeliveryCounter(r.getDeliveryCounter() + 1);
 
-            if (r.getDeliveryCounter() > 4) {
+            if (r.getDeliveryCounter() > r.tube.getMaxCapacity()) {
                 throw new ExcessiveDeliveryException();
             }
             

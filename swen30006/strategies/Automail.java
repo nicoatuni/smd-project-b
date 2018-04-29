@@ -11,7 +11,7 @@ public class Automail {
     private Robot robot1, robot2;
     public IMailPool mailPool;
     
-    public Automail(IMailDelivery delivery, String robot1_action, String robot2_action) {
+    public Automail(IMailDelivery delivery, String robotType1, String robotType2) {
     	// Swap between simple provided strategies and your strategies here
     	    	
     	/** Initialize the MailPool */
@@ -26,13 +26,13 @@ public class Automail {
     	boolean roboact1;
     	boolean roboact2;
     	
-    	if (robot1_action.equals("weak")) {
+    	if (robotType1.equals("weak")) {
     		roboact1 = weak;
     	} else {
     		roboact1 = strong;
     	}
     	
-    	if (robot2_action.equals("weak")) {
+    	if (robotType2.equals("weak")) {
     		roboact2 = weak;
     	} else {
     		roboact2 = strong;

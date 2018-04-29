@@ -14,16 +14,10 @@ public class Automail {
     
     
     public Automail(IMailDelivery delivery, String robot1_type, String robot2_type) {
-    		// Swap between simple provided strategies and your strategies here
     	    	
     		/** Initialize the MailPool */
-    	
-    		//// Swap the next line for the one below
     		mailPool = new WeakStrongMailPool();
     		
-    		//robot1_type itu weak -> upper; else if robot1_type itu strong ->
-    		//robot1_type itu weak juga -> exit() print invalid input robot type
-    		//robot
     		boolean weak = false;  // Can't handle more than 2000 grams
     		boolean strong = true; // Can handle any weight that arrives at the building
     		
@@ -32,21 +26,17 @@ public class Automail {
     		boolean case1 = false;
     		
     		if (robot1_type.equals("weak") && robot2_type.equals("weak")) {
-    			//exit
     			System.out.println("INVALID INPUT, PROGRAM SHUT DOWN !!!");
     			System.exit(0);
     		} else if(robot1_type.equals("weak") || robot2_type.equals("weak")) {
-    			//look which one is weak
     			if (robot1_type.equals("weak")) {
     				roboact1 = weak;
     				roboact2 = strong;
     			} else {
     				roboact1 = strong;
     				roboact2 = weak;
-    			}
-    			
+    			}		
     		} else if((case1=(robot1_type.equals("big") && robot2_type.equals("strong"))) || (robot1_type.equals("strong") && robot2_type.equals("big"))) {
-    			//big upper, strong lower
     			if (case1) {
     				roboact1 = weak;
     				roboact2 = strong;
@@ -54,11 +44,9 @@ public class Automail {
     				roboact1 = strong;
     				roboact2 = weak;
     			}
-    			
     		} else {
-    			//robot1 = upper, robot2 = lower
     			roboact1 = weak;
-			roboact2 = strong;
+    			roboact2 = strong;
     		}
     		
     		/** Initialize robot */
@@ -66,14 +54,26 @@ public class Automail {
     		robot2 = generateRobot(robot2_type, delivery, roboact2);
     }
     
+    /**
+    *
+    * @return the first robot
+    */
     public Robot getRobot1() {
     		return this.robot1;
     }
     
+    /**
+    *
+    * @return the second robot
+    */
     public Robot getRobot2() {
     		return this.robot2;
 	}
 	
+    /**
+    *
+    * @return the instantiated robot
+    */
     private Robot generateRobot(String robot_type, IMailDelivery delivery, boolean strong) {
     	
     		boolean behaviour = false;

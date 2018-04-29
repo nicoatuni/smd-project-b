@@ -9,6 +9,10 @@ public class PropertyManager {
 	Properties automailProperties;
 	FileReader inStream = null;// = new Properties();
 	
+	/**
+    *
+    * Instantiate automailProperties
+    */
 	public PropertyManager(String filename) {
 		automailProperties = new Properties();
 		
@@ -29,6 +33,10 @@ public class PropertyManager {
 		}
 	}
 	
+	/**
+    *
+    * @return the property value based on a property key
+    */
 	public String getProperty(String propertyname) {
 		return automailProperties.getProperty(propertyname);
 	}

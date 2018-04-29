@@ -72,7 +72,7 @@ public class StorageTube {
         return tube.pop();
     }
 
-    	public int getMaxCapacity() {
-    		return this.MAXIMUM_CAPACITY;
-    	}
+    public int getMaxCapacity() {
+   		return this.MAXIMUM_CAPACITY;
+   	}
 }

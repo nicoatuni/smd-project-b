@@ -25,7 +25,7 @@ public class Simulation {
     
     public static void main(String[] args) { //throws IOException {
 
-    		PropertyManager propertymanager = new PropertyManager("automail.properties");
+    		PropertyManager propertymanager = new PropertyManager("automail.Properties");
     		int seed = Integer.parseInt(propertymanager.getProperty("Seed"));
     		Building.setFloor(Integer.parseInt(propertymanager.getProperty("Number_of_Floors")));
     		Clock.setDeliveryTime(Integer.parseInt(propertymanager.getProperty("Last_Delivery_Time")));
@@ -44,7 +44,7 @@ public class Simulation {
         //} else{
         	//seedMap.put(false, 0);
         	//}
-        Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
+		Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
         MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
         
         /** Initiate all the mail */

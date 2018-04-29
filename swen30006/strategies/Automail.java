@@ -30,30 +30,30 @@ public class Automail {
 				mailPosition2 = "upper";
 			}
 		} else {
-			// no weak robot, and further check if one of them is a big one
-			// (either big-big, strong-strong, or strong-big)
+			// no weak robot (either big-big, strong-strong, or strong-big), and
+			// further check if one of them is a big one
 			if (robotType1.equals("big") || robotType2.equals("big")) {
 				if (robotType1.equals("big")) {
-					robotType1 = "upper";
-					robotType2 = "lower";
+					mailPosition1 = "upper";
+					mailPosition2 = "lower";
 				} else {
-					robotType1 = "lower";
-					robotType2 = "upper";
+					mailPosition1 = "lower";
+					mailPosition2 = "upper";
 				}
 			} else {
 				// no weak nor big robots, only strong ones
-				robotType1 = "upper";
-				robotType2 = "lower";
+				mailPosition1 = "upper";
+				mailPosition2 = "lower";
 			}
 		}
     	
     	//// Swap the next two lines for the two below those
-    	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(robotType1);
-    	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(robotType2);
+    	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(mailPosition1);
+    	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(mailPosition2);
     	    	
     	/** Initialize robot */
-    	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this);
-    	robot2 = new Robot(robotBehaviour2, delivery, robotType2, this);
+    	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this, mailPosition1);
+		robot2 = new Robot(robotBehaviour2, delivery, robotType2, this, mailPosition2);
     }
     
     public Robot getRobot1() {
@@ -75,10 +75,10 @@ public class Automail {
 	/**
 	 * Fill the specified storage tube with a mail item
 	 * @param tube the storage tube to be filled with mail item(s)
-	 * @param robotType the type of robot the tube belongs to
+	 * @param mailPosition upper or lower robot
 	 */
-	public void fillStorageTube(StorageTube tube, String robotType) {
-		mailPool.fillStorageTube(tube, robotType);
+	public void fillStorageTube(StorageTube tube, String mailPosition) {
+		mailPool.fillStorageTube(tube, mailPosition);
 	}
     
 }

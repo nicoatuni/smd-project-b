@@ -28,6 +28,9 @@ public class Robot {
 
     private Automail automail;
 
+    // whether it's an upper or lower robot
+    private String mailPosition;
+
     static int count = 0;
     static Map<Integer, Integer> hashMap = new TreeMap<Integer, Integer>();
 
@@ -39,7 +42,7 @@ public class Robot {
      * @param mailPool is the source of mail items
      * @param strong is whether the robot can carry heavy items
      */
-    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, String robotType, Automail automail){
+    public Robot(IRobotBehaviour behaviour, IMailDelivery delivery, String robotType, Automail automail, String mailPosition){
     	id = "R" + hashCode();
         this.currentState = new ReturningState();
         current_floor = Building.MAILROOM_LOCATION;
@@ -49,6 +52,7 @@ public class Robot {
         this.robotType = robotType;
         this.deliveryCounter = 0;
         this.automail = automail;
+        this.mailPosition = mailPosition;
     }
 
     /**
@@ -110,7 +114,7 @@ public class Robot {
      * Get Automail to fill the robot's storage tube
      */
     public void fillStorageTube() {
-        automail.fillStorageTube(tube, robotType);
+        automail.fillStorageTube(tube, mailPosition);
     }
 
     @Override

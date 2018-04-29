@@ -50,10 +50,9 @@ public class WeakStrongMailPool implements IMailPool{
 	
 	@Override
 	// public void fillStorageTube(StorageTube tube, boolean strong) {
-	public void fillStorageTube(StorageTube tube, String robotType) {
-		// Queue<MailItem> q = strong ? lower : upper;
+	public void fillStorageTube(StorageTube tube, String mailPosition) {
 		Queue<MailItem> q;
-		if (robotType.equals("weak")) {
+		if (mailPosition.equals("upper")) {
 			q = upper;
 		} else {
 			q = lower;

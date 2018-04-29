@@ -5,11 +5,11 @@ import automail.StorageTube;
 
 public class MyRobotBehaviour implements IRobotBehaviour {
 	
-	private String robotType;
+	private String mailPosition;
 	private int newPriority; // Used if we are notified that a priority item has arrived. 
 		
-	public MyRobotBehaviour(String robotType) {
-		this.robotType = robotType;
+	public MyRobotBehaviour(String mailPosition) {
+		this.mailPosition = mailPosition;
 		newPriority = 0;
 	}
 	
@@ -34,7 +34,7 @@ public class MyRobotBehaviour implements IRobotBehaviour {
 		} else {
 			// Return true for the strong robot if the one waiting is higher priority than the one we have
 			// Assumes that the one at the top of the tube has the highest priority
-			return robotType.equals("strong") && newPriority > tubePriority(tube);
+			return mailPosition.equals("lower") && newPriority > tubePriority(tube);
 		}
 	}
 

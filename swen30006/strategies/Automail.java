@@ -23,24 +23,24 @@ public class Automail {
     	boolean weak = false;  // Can't handle more than 2000 grams
     	boolean strong = true; // Can handle any weight that arrives at the building
     	
-    	boolean roboact1;
-    	boolean roboact2;
+    	// boolean roboact1;
+    	// boolean roboact2;
     	
-    	if (robotType1.equals("weak")) {
-    		roboact1 = weak;
-    	} else {
-    		roboact1 = strong;
-    	}
-    	
-    	if (robotType2.equals("weak")) {
-    		roboact2 = weak;
-    	} else {
-    		roboact2 = strong;
-    	}
+    	// if (robotType1.equals("weak")) {
+    		// roboact1 = weak;
+    	// } else {
+    		// roboact1 = strong;
+    	// }
+
+    	// if (robotType2.equals("weak")) {
+    		// roboact2 = weak;
+    	// } else {
+    		// roboact2 = strong;
+    	// }
     	
     	//// Swap the next two lines for the two below those
-    	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(roboact1);
-    	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(roboact2);
+    	IRobotBehaviour robotBehaviour1 = new MyRobotBehaviour(robotType1);
+    	IRobotBehaviour robotBehaviour2 = new MyRobotBehaviour(robotType2);
     	    	
     	/** Initialize robot */
     	robot1 = new Robot(robotBehaviour1, delivery, robotType1, this); /* shared behaviour because identical and stateless */

@@ -10,13 +10,12 @@ public class Automail {
 	// Maybe we could change it into an array of robot? for cases where we have more than 2 robots
     private Robot robot1, robot2;
     private IMailPool mailPool;
-    private MailItem item;
+    private IMailDelivery delivery;
     
-    public Automail(IMailDelivery delivery, String robot1_type, String robot2_type) {
-    	    	
+    public Automail(String robot1_type, String robot2_type, IMailDelivery deliver) {
     		/** Initialize the MailPool */
     		mailPool = new WeakStrongMailPool();
-    		item = null;
+    		delivery = deliver;
     		
     		boolean weak = false;  // Can't handle more than 2000 grams
     		boolean strong = true; // Can handle any weight that arrives at the building
@@ -82,18 +81,9 @@ public class Automail {
     *
     * @return the Delivered Item
     */
-    public MailItem getItem() {
-    	return this.item;
-	}
-	
-    /**
-    *
-    * Set the Delivered Item value
-    */
-    public void setItem(MailItem item) {
-    	this.item = item;
-	}
-	
+    public void deliveredReport(MailItem item) {
+    	delivery.deliver(item);
+    }
     
     /**
     *

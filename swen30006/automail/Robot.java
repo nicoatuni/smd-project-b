@@ -5,7 +5,6 @@ import java.util.TreeMap;
 import exceptions.ExcessiveDeliveryException;
 import exceptions.ItemTooHeavyException;
 import strategies.Automail;
-import strategies.IMailPool;
 import strategies.IRobotBehaviour;
 
 /**

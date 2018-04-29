@@ -15,8 +15,7 @@ public class DeliveringState extends RobotState {
         boolean wantToReturn = r.behaviour.returnToMailRoom(r.tube);
 
         if (r.getCurrentFloor() == r.getDestinationFloor()) {
-            //r.delivery.deliver(r.getDeliveryItem());
-            r.getAutomail().setItem(r.getDeliveryItem());
+            r.getAutomail().deliveredReport(r.getDeliveryItem());
         	r.setDeliveryCounter(r.getDeliveryCounter() + 1);
 
             if (r.getDeliveryCounter() > r.tube.getMaxCapacity()) {

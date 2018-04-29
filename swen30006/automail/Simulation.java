@@ -23,6 +23,8 @@ public class Simulation {
     private static double total_score = 0;
     private static double penalty = 1.1;
     
+    private static IMailDelivery delivery;
+    
     public static void main(String[] args) { //throws IOException {
 
     	/* Set all properties from the .properties file */
@@ -34,6 +36,7 @@ public class Simulation {
     	MAIL_TO_CREATE = Integer.parseInt(propertymanager.getProperty("Mail_to_Create"));
     		
         MAIL_DELIVERED = new ArrayList<MailItem>();
+        delivery = new ReportDelivery();
                 
         /** Used to see whether a seed is initialized or not */
         HashMap<Boolean, Integer> seedMap = new HashMap<>();
@@ -42,7 +45,7 @@ public class Simulation {
         seedMap.put(true, seed);
 
         Automail automail = new Automail(new ReportDelivery(), propertymanager.getProperty("Robot_Type_1"), propertymanager.getProperty("Robot_Type_2"));
-        MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.mailPool, seedMap);
+        MailGenerator generator = new MailGenerator(MAIL_TO_CREATE, automail.getMailPool(), seedMap);
         
         /** Initiate all the mail */
         generator.generateAllMail();
@@ -56,7 +59,15 @@ public class Simulation {
             }
             try {
 				automail.getRobot1().step();
+				if (automail.getItem()!=null) {
+					delivery.deliver(automail.getItem());
+					automail.setItem(null);
+				}
 				automail.getRobot2().step();
+				if (automail.getItem()!=null) {
+					delivery.deliver(automail.getItem());
+					automail.setItem(null);
+				}
 			} catch (ExcessiveDeliveryException|ItemTooHeavyException e) {
 				e.printStackTrace();
 				System.out.println("Simulation unable to complete.");

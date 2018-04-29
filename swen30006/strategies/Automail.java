@@ -9,14 +9,14 @@ public class Automail {
 	
 	// Maybe we could change it into an array of robot? for cases where we have more than 2 robots
     private Robot robot1, robot2;
-    public IMailPool mailPool;
-    
-    
+    private IMailPool mailPool;
+    private MailItem item;
     
     public Automail(IMailDelivery delivery, String robot1_type, String robot2_type) {
     	    	
     		/** Initialize the MailPool */
     		mailPool = new WeakStrongMailPool();
+    		item = null;
     		
     		boolean weak = false;  // Can't handle more than 2000 grams
     		boolean strong = true; // Can handle any weight that arrives at the building
@@ -50,8 +50,8 @@ public class Automail {
     		}
     		
     		/** Initialize robot */
-    		robot1 = generateRobot(robot1_type, delivery, roboact1); /* shared behaviour because identical and stateless */
-    		robot2 = generateRobot(robot2_type, delivery, roboact2);
+    		robot1 = generateRobot(robot1_type, roboact1); /* shared behaviour because identical and stateless */
+    		robot2 = generateRobot(robot2_type, roboact2);
     }
     
     /**
@@ -59,7 +59,7 @@ public class Automail {
     * @return the first robot
     */
     public Robot getRobot1() {
-    		return this.robot1;
+    	return this.robot1;
     }
     
     /**
@@ -67,14 +67,39 @@ public class Automail {
     * @return the second robot
     */
     public Robot getRobot2() {
-    		return this.robot2;
+    	return this.robot2;
 	}
 	
     /**
     *
+    * @return the Mailpool
+    */
+    public IMailPool getMailPool() {
+    	return this.mailPool;
+	}
+    
+    /**
+    *
+    * @return the Delivered Item
+    */
+    public MailItem getItem() {
+    	return this.item;
+	}
+	
+    /**
+    *
+    * Set the Delivered Item value
+    */
+    public void setItem(MailItem item) {
+    	this.item = item;
+	}
+	
+    
+    /**
+    *
     * @return the instantiated robot
     */
-    private Robot generateRobot(String robot_type, IMailDelivery delivery, boolean strong) {
+    private Robot generateRobot(String robot_type, boolean strong) {
     	
     		boolean behaviour = false;
     		
@@ -84,7 +109,7 @@ public class Automail {
     		
     		IRobotBehaviour robotBehaviour = new MyRobotBehaviour(behaviour);
     		
-    		return new Robot(robotBehaviour, delivery, strong, this, robot_type);
+    		return new Robot(robotBehaviour, strong, this, robot_type);
     }
     
 	/**
